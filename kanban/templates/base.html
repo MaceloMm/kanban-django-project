@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusBoard</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="{% static 'scripts/main.js' %}"></script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="navBar">
+        <span class="material-symbols-outlined login">
+            person
+        </span>
+        <div class="options">
+            <label>
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </label>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+
+</body>
+
+</html>

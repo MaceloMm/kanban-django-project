@@ -1,15 +1,180 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form action="{% url 'index' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
-</body>
-</html>
+
+{% block content %}
+
+<div class="container">
+
+    <div class="filters">
+        teste
+    </div>
+
+    <div class="tasks">
+        <div class="teste">
+
+        </div>
+
+        <div class="starteds">
+
+            <div class="title">
+                <h2>Não iniciadas</h2>
+                <span class="material-symbols-outlined" id="addNI">
+                    add
+                </span>
+            </div>
+            {% for task_ni in tasks_ni %}
+            <div class="card">
+                <main>
+                    <div>
+                        <h3>
+                            {{ task_ni.title|title }}
+                        </h3>
+                        <p>Criado: {{ task_ni.create|date:"d/m/Y H:i" }}</p>
+                    </div>
+                    <p>
+                        <!-- {{ task_ni.description }} -->
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis excepturi quam doloribus nam
+                        molestias? Necessitatibus, molestiae ratione sunt eligendi velit quos dolor, itaque accusamus
+                        dicta dignissimos, unde temporibus deserunt delectus!
+                    </p>
+                </main>
+                <aside>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <span class="material-symbols-outlined">
+                            check
+                        </span>
+                        <span class="material-symbols-outlined">
+                            edit
+                        </span>
+                        <input type="hidden" value="{{task_ni.id}}" name="tarefa_id">
+                        <label for="">
+                            <button type="submit" name="deleteMethod">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button>      
+                        </label>
+                    </form>
+                </aside>
+            </div>
+            {% endfor %}
+      
+        </div>
+
+        <div class="progress">
+            <div class="title">
+                <h2>Em progresso</h2>
+                <span class="material-symbols-outlined" id="addEA">
+                    add
+                </span>
+            </div>
+
+            {% for task_e in tasks_ea %}
+            <div class="card">
+                <main>
+                    <div>
+                        <h3>
+                            {{ task_e.title|title }}
+                        </h3>
+                        <p>Criado: {{ task_e.create|date:"d/m/Y H:i" }}</p>
+                    </div>
+                    <p>
+                        {{ task_e.description }}
+                    </p>
+                </main>
+                <aside>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <span class="material-symbols-outlined">
+                            check
+                        </span>
+                        <span class="material-symbols-outlined">
+                            edit
+                        </span>
+                        <input type="hidden" value="{{task_e.id}}" name="tarefa_id">
+                        <label for="">
+                            <button type="submit" name="deleteMethod">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button>      
+                        </label>
+                    </form>
+                </aside>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="conpleted">
+            <div class="title">
+                <h2>Concluidas</h2>
+                <span class="material-symbols-outlined" id="addCL">
+                    add
+                </span>
+            </div>
+
+            {% for task_c in tasks_cl %}
+            <div class="card">
+                <main>
+                    <div>
+                        <h3>
+                            {{ task_c.title|title }}
+                        </h3>
+                        <p>Criado: {{ task_c.create|date:"d/m/Y H:i" }}</p>
+                    </div>
+                    <p>
+                        {{ task_c.description }}
+                    </p>
+                </main>
+                <aside>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <span class="material-symbols-outlined">
+                            check
+                        </span>
+                        <span class="material-symbols-outlined">
+                            edit
+                        </span>
+                        <input type="hidden" value="{{task_c.id}}" name="tarefa_id">
+                        <label for="">
+                            <button type="submit" name="deleteMethod">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button>      
+                        </label>
+                    </form>
+                </aside>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+<!-- style="display: none;" -->
+<aside id="modalRegister" class="backRegister">
+    <div class="title">
+        
+    </div>
+    <div class="modalRegister">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="">
+                <input type="text" name="title">
+
+            </label>
+            <label for="">
+                <textarea name="description">
+
+                </textarea>
+            </label>
+            <input type="text" hidden value="NI" name="task_status">
+            <button type="submit">enviar</button>
+        </form>
+    </div>
+</aside>
+
+{% endblock %}

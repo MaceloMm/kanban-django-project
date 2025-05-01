@@ -4,9 +4,9 @@ from stdimage.models import StdImageField
 
 class Base(models.Model):
 
-    create = models.DateField('CreateAt', auto_now_add=True)
+    create = models.DateTimeField('CreateAt', auto_now_add=True)
     change = models.DateField('ChangesTo', auto_now=True)
-    Status = models.BooleanField('Status', default=True)
+    status = models.BooleanField('Status', default=True)
 
     class Meta:
         abstract = True
@@ -22,8 +22,8 @@ class Task(Base):
 
     title = models.CharField('Title', max_length=120)
     description = models.CharField('Description', max_length=220)
-    task_status = models.CharField('Task Status', max_length=12, choices=STATUS_CHOICES)
-    task_conclusion = models.DateField('Ended', null=True, blank=True)
+    task_status = models.CharField('Task Status', max_length=12, choices=STATUS_CHOICES, default='NI')
+    task_conclusion = models.DateTimeField('Ended', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Tarefa'
