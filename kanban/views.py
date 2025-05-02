@@ -10,17 +10,18 @@ from django.urls import reverse_lazy
 class IndexView(View):
     template_name = 'index.html'
     form = TaskForm()
-    tasks = Task.objects.filter(status=True)
+
+    @staticmethod
+    def get_tasks(context: dict) -> dict:
+        tasks = Task.objects.filter(status=True).order_by('create')
+        context.update({'tasks_ni': [i for i in tasks if i.task_status == 'NI'],
+                          'tasks_ea': [i for i in tasks if i.task_status == 'EA'],
+                          'tasks_cl': [i for i in tasks if i.task_status == 'CL']
+                        })
+        return context
 
     def get(self, request):
-        return render(request,
-                      template_name=self.template_name,
-                      context={
-                          'tasks_ni': [i for i in self.tasks if i.task_status == 'NI'],
-                          'tasks_ea': [i for i in self.tasks if i.task_status == 'EA'],
-                          'tasks_cl': [i for i in self.tasks if i.task_status == 'CL'],
-                          'form': self.form,
-                      })
+        return render(request, template_name=self.template_name, context=self.get_tasks({'form': self.form}))
 
     def post(self, request):
 
@@ -30,20 +31,19 @@ class IndexView(View):
                 deleted_item = Task.objects.get(id=item_id)
                 deleted_item.status = False
                 deleted_item.save()
-                self.tasks = Task.objects.filter(status=True)
-                return render(request,
-                              template_name=self.template_name,
-                              context={
-                                    'tasks': self.tasks,
-                                    'form': self.form,
-                                    'message': 'Tarefa excluida com Sucesso!',
-                                    'tasks_ni': [i for i in self.tasks if i.task_status == 'NI'],
-                                    'tasks_ea': [i for i in self.tasks if i.task_status == 'EA'],
-                                    'tasks_cl': [i for i in self.tasks if i.task_status == 'CL']
-                              })
+                return render(request, template_name=self.template_name,
+                              context=self.get_tasks({'form': self.form, 'message': 'Tarefa excluida com Sucesso!'}))
+
+        elif 'editTask' in request.POST:
+            item_edit = Task.objects.get(id=int(request.POST.get('tarefa_id')))
+            item_edit.title = request.POST.get('title')
+            item_edit.description = request.POST.get('description')
+            item_edit.save()
+            return redirect('index')
+
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('index')
-        return render(request, template_name=self.template_name, context={'tasks': self.tasks, 'form': self.form})
+        return render(request, template_name=self.template_name, context=self.get_tasks({'form': self.form}))
 

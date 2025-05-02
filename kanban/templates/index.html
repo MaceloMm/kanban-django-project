@@ -31,11 +31,8 @@
                         </h3>
                         <p>Criado: {{ task_ni.create|date:"d/m/Y H:i" }}</p>
                     </div>
-                    <p>
-                        <!-- {{ task_ni.description }} -->
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis excepturi quam doloribus nam
-                        molestias? Necessitatibus, molestiae ratione sunt eligendi velit quos dolor, itaque accusamus
-                        dicta dignissimos, unde temporibus deserunt delectus!
+                    <p class="desc">
+                         {{ task_ni.description }}
                     </p>
                 </main>
                 <aside>
@@ -44,7 +41,7 @@
                         <span class="material-symbols-outlined">
                             check
                         </span>
-                        <span class="material-symbols-outlined">
+                        <span class="material-symbols-outlined editTask">
                             edit
                         </span>
                         <input type="hidden" value="{{task_ni.id}}" name="tarefa_id">
@@ -65,9 +62,9 @@
         <div class="progress">
             <div class="title">
                 <h2>Em progresso</h2>
-                <span class="material-symbols-outlined" id="addEA">
-                    add
-                </span>
+<!--                <span class="material-symbols-outlined" id="addEA">-->
+<!--                    add-->
+<!--                </span>-->
             </div>
 
             {% for task_e in tasks_ea %}
@@ -109,9 +106,9 @@
         <div class="conpleted">
             <div class="title">
                 <h2>Concluidas</h2>
-                <span class="material-symbols-outlined" id="addCL">
-                    add
-                </span>
+<!--                <span class="material-symbols-outlined" id="addCL">-->
+<!--                    add-->
+<!--                </span>-->
             </div>
 
             {% for task_c in tasks_cl %}
@@ -154,27 +151,30 @@
 
 </div>
 
-<!-- style="display: none;" -->
-<aside id="modalRegister" class="backRegister">
-    <div class="title">
-        
-    </div>
+<!-- style="display: none;"  -->
+<aside id="modalRegister" class="backRegister hiden">
+
     <div class="modalRegister">
+        <div class="title">
+            <h2>Cadastro de Tarefa</h2>
+        </div>
         <form action="" method="POST">
             {% csrf_token %}
             <label for="">
+                <p>Nome da tarefa: </p>
                 <input type="text" name="title">
-
             </label>
             <label for="">
+                <p>Descrição da Tarefa:</p>
                 <textarea name="description">
 
                 </textarea>
             </label>
-            <input type="text" hidden value="NI" name="task_status">
-            <button type="submit">enviar</button>
+            <input type="text" hidden value="NI" name="task_status" id="task_status">
+            <button type="submit">Enviar</button>
         </form>
     </div>
+
 </aside>
 
 {% endblock %}
