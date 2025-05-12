@@ -6,12 +6,26 @@
 <div class="container">
 
     <div class="filters">
-        teste
+        <div class="title">
+            <h1>Filtros</h1>
+        </div>
+        <form action="" method="get">
+            <label>
+                Tarefas do dia:
+                <input type="checkbox" name="tasks_today">
+            </label>
+            <label>
+                <input type="checkbox" name="status_filter">
+            <button>enviar</button>
+        </form>
     </div>
 
     <div class="tasks">
-        <div class="teste">
-
+        <div class="title">
+            <div>
+                <h1>Tarefas</h1>
+                <p>{{ quantity_tasks }} tarefas cadastradas </p>
+            </div>
         </div>
 
         <div class="starteds">
@@ -22,6 +36,7 @@
                     add
                 </span>
             </div>
+
             {% for task_ni in tasks_ni %}
             <div class="card">
                 <main>
@@ -45,13 +60,9 @@
                             edit
                         </span>
                         <input type="hidden" value="{{task_ni.id}}" name="tarefa_id">
-                        <label for="">
-                            <button type="submit" name="deleteMethod">
-                                <span class="material-symbols-outlined">
-                                    delete
-                                </span>
-                            </button>      
-                        </label>
+                        <span class="material-symbols-outlined deleteBtn">
+                                delete
+                        </span>
                     </form>
                 </aside>
             </div>
@@ -62,9 +73,9 @@
         <div class="progress">
             <div class="title">
                 <h2>Em progresso</h2>
-<!--                <span class="material-symbols-outlined" id="addEA">-->
-<!--                    add-->
-<!--                </span>-->
+               <span class="material-symbols-outlined" id="addEA">
+                   add
+               </span>
             </div>
 
             {% for task_e in tasks_ea %}
@@ -76,7 +87,7 @@
                         </h3>
                         <p>Criado: {{ task_e.create|date:"d/m/Y H:i" }}</p>
                     </div>
-                    <p>
+                    <p class="desc">
                         {{ task_e.description }}
                     </p>
                 </main>
@@ -86,17 +97,13 @@
                         <span class="material-symbols-outlined">
                             check
                         </span>
-                        <span class="material-symbols-outlined">
+                        <span class="material-symbols-outlined editTask">
                             edit
                         </span>
                         <input type="hidden" value="{{task_e.id}}" name="tarefa_id">
-                        <label for="">
-                            <button type="submit" name="deleteMethod">
-                                <span class="material-symbols-outlined">
-                                    delete
-                                </span>
-                            </button>      
-                        </label>
+                        <span class="material-symbols-outlined deleteBtn">
+                                delete
+                        </span>
                     </form>
                 </aside>
             </div>
@@ -106,9 +113,9 @@
         <div class="conpleted">
             <div class="title">
                 <h2>Concluidas</h2>
-<!--                <span class="material-symbols-outlined" id="addCL">-->
-<!--                    add-->
-<!--                </span>-->
+               <span class="material-symbols-outlined" id="addCL">
+                   add
+               </span>
             </div>
 
             {% for task_c in tasks_cl %}
@@ -120,7 +127,7 @@
                         </h3>
                         <p>Criado: {{ task_c.create|date:"d/m/Y H:i" }}</p>
                     </div>
-                    <p>
+                    <p class="desc">
                         {{ task_c.description }}
                     </p>
                 </main>
@@ -130,17 +137,13 @@
                         <span class="material-symbols-outlined">
                             check
                         </span>
-                        <span class="material-symbols-outlined">
+                        <span class="material-symbols-outlined editTask">
                             edit
                         </span>
                         <input type="hidden" value="{{task_c.id}}" name="tarefa_id">
-                        <label for="">
-                            <button type="submit" name="deleteMethod">
-                                <span class="material-symbols-outlined">
-                                    delete
-                                </span>
-                            </button>      
-                        </label>
+                        <span class="material-symbols-outlined deleteBtn">
+                            delete
+                        </span>
                     </form>
                 </aside>
             </div>
@@ -175,6 +178,19 @@
         </form>
     </div>
 
+</aside>
+
+<aside class="backRegister hiden" id="modalDelete">
+    <div class="modalDelete">
+        <div class="title">
+            <h1>Tem certeza que deseja deletar?</h1>
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <button type="submit" name="deleteMethod" class="btnDelete">Sim</button>
+            <button class="notDelete">Não</button>
+        </form>
+    </div>
 </aside>
 
 {% endblock %}

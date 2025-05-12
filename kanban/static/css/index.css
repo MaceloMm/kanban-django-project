@@ -90,7 +90,6 @@ body {
 .container {
     width: 100%;
     height: 100%;
-    border: 1px solid red;
     display: flex;
 
 
@@ -100,10 +99,9 @@ body {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 0.1fr 1fr;
-        grid-template-areas: 'teste teste teste' 'starteds progress conpleted';
+        grid-template-areas: 'title title title' 'starteds progress conpleted';
         gap: 0.8rem 2.4rem;
         padding: 0.8rem;
-        margin-left: 2rem;
 
         .title {
             width: 100%;
@@ -137,27 +135,27 @@ body {
             display: flex;
             justify-content: space-between;
 
-            main{
+            main {
                 width: 85%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
 
-                div{
+                div {
                     margin-left: 1.6rem;
 
-                    h3{
+                    h3 {
                         font-size: 3rem;
                     }
 
-                    p{
+                    p {
                         font-size: 1.2rem;
                         margin-left: 0.3rem;
                         opacity: 0.7;
                     }
                 }
 
-                p{
+                p {
                     margin-left: 2rem;
                     margin-top: 1rem;
                     font-size: 1.2rem;
@@ -170,7 +168,7 @@ body {
                 }
             }
 
-            aside{
+            aside {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -179,9 +177,9 @@ body {
                 width: 12%;
                 height: 100%;
 
-                
 
-                span{
+
+                span {
                     font-size: 3.5rem;
                     font-weight: bold;
                     display: flex;
@@ -193,31 +191,49 @@ body {
                     transition: 0.6s ease;
                 }
 
-                span:hover{
+                span:hover {
                     opacity: 1;
                 }
 
-                form{
+                form {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
                     gap: 1.2rem;
 
-                    label button{
+                    label button {
                         background-color: transparent;
                         cursor: pointer;
                         border: none;
                     }
-                } 
+                }
             }
 
         }
 
 
-        .teste {
-            grid-area: teste;
-            background-color: #9c27b0;
+        .title {
+            grid-area: title;
+            background-color: #2a2a2a;
+            box-shadow:
+                0 3px 5px rgba(255, 255, 255, 0.1),
+                0 3px 5px rgba(255, 255, 255, 0.1);
+
+            div {
+                font-size: 1.2rem;
+
+                h1 {
+                    font-size: 2.4rem;
+                    color: var(--text-dark);
+                }
+
+                p {
+                    font-size: 1.2rem;
+                    color: var(--text-dark);
+                    opacity: 0.7;
+                }
+            }
         }
 
         .starteds {
@@ -253,10 +269,38 @@ body {
 
     .filters {
         width: 15%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.8rem;
+
+
+        .title {
+            padding: 1.2rem;
+            width: 100%;
+            background-color: #2a2a2a;
+            box-shadow:
+                0 3px 5px rgba(255, 255, 255, 0.1),
+                0 3px 5px rgba(255, 255, 255, 0.1);
+        }
+
+        form{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            label{
+                
+            }
+        }
+        
     }
 }
 
-.backRegister{
+.backRegister {
     position: absolute;
     right: 0;
     top: 0;
@@ -269,7 +313,7 @@ body {
     flex-direction: column;
     z-index: 999;
 
-    .modalRegister{
+    .modalRegister {
         width: 25%;
         height: 50%;
         background-color: var(--bg-dark);
@@ -282,13 +326,13 @@ body {
         justify-content: center;
         flex-direction: column;
 
-        .title{
-            h2{
+        .title {
+            h2 {
                 font-size: 2rem;
             }
         }
 
-        form{
+        form {
             flex-direction: column;
             display: flex;
             justify-content: center;
@@ -296,7 +340,7 @@ body {
             width: 80%;
             height: 80%;
 
-            label{
+            label {
                 color: white;
                 padding: 0.8rem;
                 display: flex;
@@ -304,7 +348,7 @@ body {
                 flex-direction: column;
                 font-size: 1.6rem;
 
-                input{
+                input {
                     padding: 0.8rem;
                     background-color: transparent;
                     border: none;
@@ -312,7 +356,7 @@ body {
                     border-radius: 0.8rem;
                 }
 
-                textarea{
+                textarea {
                     background-color: transparent;
                     border: none;
                     border: 2px solid rgba(156, 39, 176, 0.5);
@@ -322,8 +366,8 @@ body {
                     height: 10rem;
                 }
             }
-            
-            button{
+
+            button {
                 color: white;
                 background-color: transparent;
                 border: none;
@@ -337,7 +381,7 @@ body {
                 border-radius: 0.8rem;
             }
 
-            button:hover{
+            button:hover {
                 background-color: var(--accent-dark);
 
             }
@@ -345,6 +389,68 @@ body {
     }
 }
 
-.hiden{
-    display: none !important; 
+.modalDelete {
+    width: 20%;
+    height: 30%;
+    background-color: var(--bg-dark);
+    z-index: 1000;
+    border-radius: 0.8rem;
+    box-shadow: var(--shadow-dark);
+    border: 1px solid var(--border-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4rem;
+
+    h1 {
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    form {
+        display: flex;
+        gap: 2rem;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+
+        button {
+            width: 30%;
+            color: white;
+            background-color: transparent;
+            border: none;
+            padding: 0.8rem;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: 0.6s ease;
+            font-weight: bold;
+            border-radius: 0.8rem;
+        }
+
+        .btnDelete {
+            border-bottom: 2px solid var(--accent-dark) !important;
+        }
+
+        .btnDelete:hover {
+            background-color: var(--accent-dark);
+        }
+
+        .notDelete {
+            border-bottom: 2px solid var(--primary-dark);
+        }
+
+        .notDelete:hover {
+            color: var(--bg-dark);
+            background-color: var(--primary-dark);
+        }
+
+        button:hover {
+            background-color: var(--accent-dark);
+        }
+    }
+}
+
+.hiden {
+    display: none !important;
 }

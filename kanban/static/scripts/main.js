@@ -5,7 +5,7 @@ function createInput(name){
     newInputEl.setAttribute('value', name);
 
     return newInputEl;
-}
+};
 
 document.getElementById('addNI').addEventListener('click', () => {
     const modalElement = document.getElementById('modalRegister');
@@ -13,11 +13,22 @@ document.getElementById('addNI').addEventListener('click', () => {
     formElement.appendChild(createInput('NI'));
     modalElement.classList.toggle('hiden');
 
-})
+});
 
 document.getElementById('modalRegister').addEventListener('click', function(e) {
-    if (e.target === this){this.classList.toggle('hiden');};
-})
+    if (e.target === this){
+        if (this.contains(this.querySelector('[name="tarefa_id"]'))){
+            this.querySelector('form button').removeAttribute('name');
+            this.querySelector('form').removeChild(this.querySelector('[name="tarefa_id"]'));
+            this.querySelector('[name="title"]').value = "";
+            this.querySelector('[name="description"]').innerHTML = "";
+        }if (this.contains(this.querySelector('[name="task_status"]'))){
+            this.querySelector('form').removeChild(this.querySelector('[name="task_status"]'));
+        };
+        
+        this.classList.toggle('hiden');
+    };
+});
 
 document.querySelectorAll('.editTask').forEach(function (el){
     el.addEventListener('click', function(){
@@ -25,12 +36,27 @@ document.querySelectorAll('.editTask').forEach(function (el){
         const taskName = elPai.querySelector('div').querySelector('h3').innerText;
         const taskDesc = elPai.querySelector('.desc').innerText;
         const modalEl = document.getElementById('modalRegister');
-        const taskId = el.parentElement.querySelector('[name="tarefa_id"]')
+        const taskId = el.parentElement.querySelector('[name="tarefa_id"]').cloneNode(true);
         modalEl.querySelector('[name="title"]').value = taskName;
         modalEl.querySelector('[name="description"]').innerHTML = taskDesc;
         modalEl.querySelector('form').appendChild(taskId);
         modalEl.querySelector('button').setAttribute('name', 'editTask')
 
         modalEl.classList.toggle('hiden');
-    })
-})
+    });
+});
+
+document.getElementById('modalDelete').addEventListener('click', function(){
+    this.querySelector('form').removeChild(this.querySelector('[name="tarefa_id"]'));
+    this.classList.toggle('hiden');
+});
+
+
+document.querySelectorAll('.deleteBtn').forEach(function (el){
+    el.addEventListener('click', function(){
+        const inputEl = el.parentElement.querySelector('[name="tarefa_id"]').cloneNode(true);
+        const modal = document.getElementById('modalDelete');
+        modal.querySelector('form').appendChild(inputEl);
+        modal.classList.toggle('hiden')
+    });
+});
