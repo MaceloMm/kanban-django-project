@@ -281,22 +281,101 @@ body {
             padding: 1.2rem;
             width: 100%;
             background-color: #2a2a2a;
-            box-shadow:
-                0 3px 5px rgba(255, 255, 255, 0.1),
-                0 3px 5px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 3px 5px rgba(255, 255, 255, 0.1), 0 3px 5px rgba(255, 255, 255, 0.1);
         }
 
-        form{
+        form {
             height: 100%;
             display: flex;
             align-items: center;
             flex-direction: column;
+            width: 100%;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
 
-            label{
-                
+            .filter {
+                width: 100%;
+                overflow-y: auto;
+                overflow-x: hidden;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                gap: 1rem;
+
+                label {
+                    box-shadow: 0px 3px 5px rgba(255, 255, 255, 0.1),
+                                0px 3px 5px rgba(255, 255, 255, 0.1);
+                    display: flex;
+                    align-items: center;
+                    gap: 1.2rem;
+                    font-size: 1.6rem;
+                    background-color: var(--card-dark);
+                    width: 100%;
+                    padding: 1.2rem;
+
+                    input[type="checkbox"] {
+                        display: none;
+                    }
+
+                    span {
+                        display: block;
+                        height: 2.4rem;
+                        width: 2.4rem;
+                        border: 0.2rem solid var(--accent-dark);
+                        border-radius: 0.8rem;
+                        position: relative;
+                    }
+
+                    input[type="checkbox"]:checked+span::before {
+                        content: '';
+                        width: 0.5rem;
+                        height: 1.2rem;
+                        border-right: 0.2rem solid var(--accent-dark);
+                        border-bottom: 0.2rem solid var(--accent-dark);
+                        position: absolute;
+                        top: calc(50% - 2px);
+                        left: 50%;
+                        transform: translate(-50%, -50%) rotate(45deg);
+                    }
+
+                    input[type="date"] {
+                        background-color: transparent;
+                        border: none;
+                        border-bottom: 1px solid var(--accent-dark);
+                        padding: 0.8rem;
+                        color: var(--text-dark);
+                        width: 100%;
+                    }
+
+                }
             }
+
+            .buttons {
+                width: 100%;
+                display: flex;
+                gap: 0.8rem;
+                align-items: center;
+                justify-content: center;
+
+                button {
+                    width: 45%;
+                    border: none;
+                    background-color: transparent;
+                    padding: 0.8rem;
+                    border-bottom: 0.2rem solid var(--accent-dark);
+                    font-weight: bold;
+                    transition: 0.6s ease;
+                    cursor: pointer;
+                }
+
+                button:hover {
+                    background-color: var(--accent-dark);
+                    color: var(--bg-dark);
+                }
+            }
+
         }
-        
+
     }
 }
 

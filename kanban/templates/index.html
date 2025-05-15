@@ -10,13 +10,24 @@
             <h1>Filtros</h1>
         </div>
         <form action="" method="get">
-            <label>
-                Tarefas do dia:
-                <input type="checkbox" name="tasks_today">
-            </label>
-            <label>
-                <input type="checkbox" name="status_filter">
-            <button>enviar</button>
+            <div class="filter">
+                <label>
+                    <input type="checkbox" name="tasks_today">
+                    <span>
+                        <div>
+                        </div>
+                    </span>
+                    Tarefas do dia
+                </label>
+                <label style="flex-direction: column; ">
+                    <p style="align-self: flex-start;">Filtrar por data:</p>
+                    <input type="date" name="data_customer">
+                </label>
+            </div>
+            <div class="buttons">
+                <button type="submit">Filtrar</button>
+                <button type="reset">Resetar</button>
+            </div>
         </form>
     </div>
 
@@ -28,7 +39,7 @@
             </div>
         </div>
 
-        <div class="starteds">
+        <div class="starteds task_container" name="starteds">
 
             <div class="title">
                 <h2>Não iniciadas</h2>
@@ -38,7 +49,7 @@
             </div>
 
             {% for task_ni in tasks_ni %}
-            <div class="card">
+            <div class="card" draggable="true" name="{{task_ni.id}}">
                 <main>
                     <div>
                         <h3>
@@ -70,7 +81,8 @@
       
         </div>
 
-        <div class="progress">
+        <div class="progress task_container" name="progress">
+
             <div class="title">
                 <h2>Em progresso</h2>
                <span class="material-symbols-outlined" id="addEA">
@@ -79,7 +91,7 @@
             </div>
 
             {% for task_e in tasks_ea %}
-            <div class="card">
+            <div class="card" draggable="true" name="{{task_ea.id}}">
                 <main>
                     <div>
                         <h3>
@@ -110,7 +122,8 @@
             {% endfor %}
         </div>
 
-        <div class="conpleted">
+        <div class="conpleted task_container" name="conpleted">
+
             <div class="title">
                 <h2>Concluidas</h2>
                <span class="material-symbols-outlined" id="addCL">
@@ -119,7 +132,7 @@
             </div>
 
             {% for task_c in tasks_cl %}
-            <div class="card">
+            <div class="card" draggable="true" name="{{task_cl.id}}">  
                 <main>
                     <div>
                         <h3>
