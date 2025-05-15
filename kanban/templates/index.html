@@ -26,7 +26,7 @@
             </div>
             <div class="buttons">
                 <button type="submit">Filtrar</button>
-                <button type="reset">Resetar</button>
+                <button type="submit">Resetar</button>
             </div>
         </form>
     </div>
@@ -42,7 +42,7 @@
         <div class="starteds task_container" name="starteds">
 
             <div class="title">
-                <h2>Não iniciadas</h2>
+                <h2><span>{{ tasks_ni|length }}</span> Não iniciadas</h2>
                 <span class="material-symbols-outlined" id="addNI">
                     add
                 </span>
@@ -84,7 +84,7 @@
         <div class="progress task_container" name="progress">
 
             <div class="title">
-                <h2>Em progresso</h2>
+                <h2><span>{{ tasks_ea|length }}</span>Em progresso</h2>
                <span class="material-symbols-outlined" id="addEA">
                    add
                </span>
@@ -125,7 +125,7 @@
         <div class="conpleted task_container" name="conpleted">
 
             <div class="title">
-                <h2>Concluidas</h2>
+                <h2><span>{{ tasks_cl|length }}</span>Concluidas</h2>
                <span class="material-symbols-outlined" id="addCL">
                    add
                </span>

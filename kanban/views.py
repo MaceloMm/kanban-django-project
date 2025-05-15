@@ -17,17 +17,17 @@ class IndexView(View):
     @staticmethod
     def get_tasks(context: dict, request) -> dict:
         tasks = Task.objects.filter(status=True).order_by('create')
-        if 'tasks_today' in request.GET:
+        if 'tasks_today' in request.GET and request.GET['tasks_today']:
             tasks = [i for i in tasks if i.create.date() == timezone.now().date()]
-        elif 'data_customer' in request.GET:
+        elif 'data_customer' in request.GET and request.GET['data_customer']:
             date = request.GET.get('data_customer')
             date = [int(n) for n in date.split('-')]
             tasks = [i for i in tasks if i.create.date() == datetime(year=date[0], month=date[1], day=date[2]).date()]
         context.update({'tasks_ni': [i for i in tasks if i.task_status == 'NI'],
-                            'tasks_ea': [i for i in tasks if i.task_status == 'EA'],
-                            'tasks_cl': [i for i in tasks if i.task_status == 'CL'],
-                            'quantity_tasks': len(tasks)
-                            })
+                        'tasks_ea': [i for i in tasks if i.task_status == 'EA'],
+                        'tasks_cl': [i for i in tasks if i.task_status == 'CL'],
+                        'quantity_tasks': len(Task.objects.filter(status=True))
+                        })
         return context
 
     def get_task(self) -> Task:
