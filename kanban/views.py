@@ -1,16 +1,23 @@
 import datetime
+
+import django.contrib.auth.models
 from django.utils import timezone
 from django.views.generic import FormView, TemplateView, View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .forms import TaskForm
-from .models import Task
+from .models import Task, Profile
 from datetime import datetime
+import json
 from django.urls import reverse_lazy
 
 
 # Create your views here.
 
-class IndexView(View):
+class IndexView(LoginRequiredMixin, View):
     template_name = 'index.html'
     form = TaskForm()
 
@@ -57,3 +64,42 @@ class IndexView(View):
             return redirect('index')
         return render(request, template_name=self.template_name, context=self.get_tasks({'form': self.form}, request))
 
+
+class UpdateTask(View):
+
+    def post(self, request, task_id):
+        try:
+            edit_task = Task.objects.get(id=task_id)
+            edit_task.task_status = json.loads(request.body).get('status')
+            edit_task.save()
+            return JsonResponse({'sucess': True})
+        except Task.DoesNotExist:
+            return JsonResponse({'sucess': False, 'message': 'Tarefa não existe'})
+        except Exception as e:
+            print(f'Erro: {e}')
+            return JsonResponse({'sucess': False, 'message': 'Ocorreu um erro'})
+
+
+class LoginView(View):
+    template_name = 'login.html'
+
+    def get(self, request):
+        return render(request, template_name=self.template_name)
+
+    def post(self, request):
+        try:
+            user = User.objects.get(email=request.POST.get('email'))
+        except django.contrib.auth.models.User.DoesNotExist:
+            return render(request, template_name=self.template_name, context={'message': 'Usuario ou Senha invalido!'})
+        else:
+            if authenticate(username=user.username, password=request.POST.get('password')):
+                login(request, authenticate(username=user.username, password=request.POST.get('password')))
+                return redirect('index')
+            return render(request, template_name=self.template_name, context={'message': 'Usuario ou Senha invalido!'})
+
+
+class SingUpView(View):
+    template = 'singin.html'
+
+    def get(self, request):
+        return render(request, template_name=self.template)

@@ -103,16 +103,40 @@ document.addEventListener('DOMContentLoaded', function () {
         this.classList.remove('highlight');
     }
     
-    function drop() {
+    async function drop() {
         this.classList.remove('highlight');
         
         if (draggedItem.parentElement !== this) {
             this.appendChild(draggedItem);
-            
+            const tasksStatus = {starteds: 'NI', progress: 'EA', conpleted: 'CL'};
+
+
             console.log(draggedItem.getAttribute('name'));
-            console.log(`Tarefa foi movida ${this.getAttribute('name')}`);
+            // console.log(`Tarefa foi movida ${tasksStatus[this.getAttribute('name')]}`); 
+            
+            try{
+                const response = await fetch(`/update_task/${draggedItem.getAttribute('name')}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value
+                    },
+                    body: JSON.stringify({
+                        status: tasksStatus[this.getAttribute('name')]
+                    })
+                })
+
+                const data = await response.json()
+                if (data.sucess){
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                draggedItem.parentElement.appendChild(draggedItem);
+            }
             
         }
     }
 
 })
+

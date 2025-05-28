@@ -91,7 +91,7 @@
             </div>
 
             {% for task_e in tasks_ea %}
-            <div class="card" draggable="true" name="{{task_ea.id}}">
+            <div class="card" draggable="true" name="{{task_e.id}}">
                 <main>
                     <div>
                         <h3>
@@ -132,7 +132,7 @@
             </div>
 
             {% for task_c in tasks_cl %}
-            <div class="card" draggable="true" name="{{task_cl.id}}">  
+            <div class="card" draggable="true" name="{{task_c.id}}">  
                 <main>
                     <div>
                         <h3>
@@ -205,5 +205,7 @@
         </form>
     </div>
 </aside>
+
+<script src="{% static 'scripts/main.js' %}" defer></script>
 
 {% endblock %}

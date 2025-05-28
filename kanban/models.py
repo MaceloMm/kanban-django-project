@@ -1,5 +1,7 @@
 from django.db import models
 from stdimage.models import StdImageField
+from django.contrib.auth.models import User
+from .utils.funcs import get_filename
 
 
 class Base(models.Model):
@@ -11,6 +13,9 @@ class Base(models.Model):
     class Meta:
         abstract = True
 
+class Profile(Base):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = StdImageField('user_image', variations={'thumb': {'width': 480, 'height': 480, 'crop': True}}, upload_to=get_filename)
 
 class Task(Base):
 
@@ -24,6 +29,7 @@ class Task(Base):
     description = models.CharField('Description', max_length=220)
     task_status = models.CharField('Task Status', max_length=12, choices=STATUS_CHOICES, default='NI')
     task_conclusion = models.DateTimeField('Ended', null=True, blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='usuario', null=True)
 
     class Meta:
         verbose_name = 'Tarefa'

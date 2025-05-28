@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-login">
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo FocusBoard">
+            <h3>Login</h3>
+        </div>
+        <label>
+            Email:
+            <input type="text" placeholder="Email" name="email" id="email" required>
+        </label>
+        <label>
+            Senha:
+            <div class="div-password">
+                <div class="input-password">
+                    <input type="password" placeholder="Senha" name="password" id="password" required>
+                    <span class="material-symbols-outlined" id="show-password">
+                        visibility
+                    </span>
+                </div>
+                <a href="">Esqueceu sua senha?</a>
+                <!--  url 'forgot_password'  -->
+            </div>
+        </label>
+        <div class="buttons">
+            <button type="submit">
+                <span>Entrar</span>
+            </button>
+            <button type="button" name="register" id="register">
+                <span>Registrar</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'scripts/login.js'%}" defer></script>
+
+{% endblock %}
