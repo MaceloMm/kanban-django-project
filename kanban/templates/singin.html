@@ -3,4 +3,15 @@
 
 {% block content %}
 
+<div class="content-register">
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="file">
+    </form>
+
+
+</div>
+
 {% endblock %}

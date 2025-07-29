@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-profile">
+    
+    <div class="content">
+        <header class="profile-header">
+            <div class="profile-image">
+                <img src="{{ user.image.thumb.url }}" alt="Profile Image">
+                <h2>{{ user.user.get_full_name }}</h2>
+            </div>
+            <div class="profile-info">
+                <p>Email: {{ user.user.email }}</p>
+                <p>Joined: {{ user.user.date_joined|date:"Y-m-d" }}</p>
+            </div>
+        </header>
+        <main class="profile-main">
+            <p>{{ total }}</p>
+            <p>cl: {{cl}}</p>
+        </main>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -51,10 +51,10 @@ document.getElementById('modalDelete').addEventListener('click', function () {
     this.classList.toggle('hiden');
 });
 
-
 document.querySelectorAll('.deleteBtn').forEach(function (el) {
     el.addEventListener('click', function () {
         const inputEl = el.parentElement.querySelector('[name="tarefa_id"]').cloneNode(true);
+        inputEl.setAttribute('id', 'tarefa_id')
         const modal = document.getElementById('modalDelete');
         modal.querySelector('form').appendChild(inputEl);
         modal.classList.toggle('hiden')
@@ -140,3 +140,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })
 
+document.getElementById('navBar').addEventListener('mouseover', function (){
+    this.classList.add('navBarHover');
+    const userOptions = document.querySelector('.user-options');
+    userOptions.classList.toggle('hiden');
+})
+
+document.getElementById('navBar').addEventListener('mouseout', function (){
+    this.classList.remove('navBarHover');
+    const userOptions = document.querySelector('.user-options');
+    userOptions.classList.toggle('hiden');
+})
+
+
+document.querySelector('.user-icon').addEventListener('click', function () {
+    const userOptions = document.querySelector('.user-options');
+    userOptions.classList.toggle('hiden');
+}); 

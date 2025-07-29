@@ -10,6 +10,15 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title', 'description', 'task_status']
 
+    def save(self, commit=True, request=None):
+        task = super().save(commit=False)
+        print(request.user.profile)
+        if request:
+            task.profile = request.user.profile
+        if commit:
+            task.save()
+        return task
+
 
 class CustomUserCreationForm(UserCreationForm):
     image = forms.ImageField(required=False)

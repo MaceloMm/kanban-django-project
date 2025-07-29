@@ -198,14 +198,15 @@
         <div class="title">
             <h1>Tem certeza que deseja deletar?</h1>
         </div>
-        <form action="" method="POST">
+        <form method="POST" id="deleteForm">
+            <input type="hidden" name="tarefa_id" id="tarefa_id" value="">
             {% csrf_token %}
             <button type="submit" name="deleteMethod" class="btnDelete">Sim</button>
-            <button class="notDelete">Não</button>
+            <button type="button" class="notDelete">Não</button>
         </form>
     </div>
 </aside>
 
-<script src="{% static 'scripts/main.js' %}" defer></script>
+<script src="{% static 'scripts/main.js' %}"></script>
 
 {% endblock %}

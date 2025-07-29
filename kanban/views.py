@@ -1,5 +1,4 @@
 import datetime
-
 import django.contrib.auth.models
 from django.utils import timezone
 from django.views.generic import FormView, TemplateView, View
@@ -23,7 +22,7 @@ class IndexView(LoginRequiredMixin, View):
 
     @staticmethod
     def get_tasks(context: dict, request) -> dict:
-        tasks = Task.objects.filter(status=True).order_by('create')
+        tasks = Task.objects.filter(status=True, profile__user=request.user.id).order_by('create')
         if 'tasks_today' in request.GET and request.GET['tasks_today']:
             tasks = [i for i in tasks if i.create.date() == timezone.now().date()]
         elif 'data_customer' in request.GET and request.GET['data_customer']:
@@ -33,7 +32,8 @@ class IndexView(LoginRequiredMixin, View):
         context.update({'tasks_ni': [i for i in tasks if i.task_status == 'NI'],
                         'tasks_ea': [i for i in tasks if i.task_status == 'EA'],
                         'tasks_cl': [i for i in tasks if i.task_status == 'CL'],
-                        'quantity_tasks': len(Task.objects.filter(status=True))
+                        'quantity_tasks': len(Task.objects.filter(status=True)),
+                        'user': Profile.objects.get(user=request.user.id)
                         })
         return context
 
@@ -60,7 +60,7 @@ class IndexView(LoginRequiredMixin, View):
 
         form = TaskForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(request=request)
             return redirect('index')
         return render(request, template_name=self.template_name, context=self.get_tasks({'form': self.form}, request))
 
@@ -89,6 +89,7 @@ class LoginView(View):
     def post(self, request):
         try:
             user = User.objects.get(email=request.POST.get('email'))
+            print(user.email)
         except django.contrib.auth.models.User.DoesNotExist:
             return render(request, template_name=self.template_name, context={'message': 'Usuario ou Senha invalido!'})
         else:
@@ -103,3 +104,15 @@ class SingUpView(View):
 
     def get(self, request):
         return render(request, template_name=self.template)
+
+
+class UserView(View, LoginRequiredMixin):
+    template = 'profile.html'
+
+    def get(self, request):
+        prof = Profile.objects.get(user=request.user.id)
+        total = Task.objects.filter(profile=prof.id)
+        return render(request, template_name=self.template, context={'user': prof,
+                                                                     'total': len(total),
+                                                                     'cl': len(total.filter(task_status='CL'))
+                                                                     })

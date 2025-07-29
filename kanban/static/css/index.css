@@ -57,7 +57,9 @@ body {
     align-items: center;
     border-right: var(--todo-dark) 2px solid;
     height: 100%;
-    gap: 2rem;
+    gap: 1.5rem;
+    width: 10rem;
+    transition: all 1.2s ease-in-out;
 
     .login {
         width: 30px;
@@ -65,6 +67,10 @@ body {
         font-size: 3.3rem;
         cursor: pointer;
         margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .options {
@@ -85,6 +91,120 @@ body {
             padding: 0.8rem;
         }
     }
+
+    form {
+        width: 100%;
+
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 2.5rem;
+            width: 100%;
+            gap: 1.2rem;
+
+            .user-icon {
+                width: 5.3rem;
+                height: 5.3rem;
+                border-radius: 2rem;
+                cursor: pointer;
+                transition: 0.6s ease-in-out;
+            }
+
+            .user-options {
+                padding: 0.6rem;
+                border: 1px solid var(--todo-dark);
+                width: 90%;
+                display: flex;
+                align-items: center;
+                justify-self: center;
+                gap: 1.4rem;
+                flex-direction: column;
+
+                .option{
+                    padding: 0.4rem;
+                    width: 100%;
+                    font-size: 1.4rem;
+                    text-decoration: none;
+                    border: none;
+                    border-bottom: 1px solid var(--accent-dark);
+                    position: relative;
+                    transition: 0.6s ease-in-out;
+                    text-align: center;
+                    background-color: transparent;
+                    cursor: pointer; 
+
+
+                    &:hover {
+                        color: var(--accent-dark);
+                    }
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        width: 1px;
+                        height: 0%;
+                        background-color: var(--accent-dark);
+                        bottom: 0;
+                        right: 0;
+                        transition: height 0.6s ease-in-out;
+                    }
+
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        width: 1px;
+                        height: 0%;
+                        background-color: var(--accent-dark);
+                        top: 0;
+                        left: 0;
+                        transition: height 0.6s ease-in-out;
+                    }
+
+                    &:hover::after {
+                        height: 100%;
+                    }
+
+                    &:hover::before {
+                        height: 100%;
+                    }
+
+                    span::after{
+                        content: '';
+                        position: absolute;
+                        width: 0%;
+                        height: 1px;
+                        background-color: var(--accent-dark);
+                        top: 0;
+                        left: 0;
+                        transition: 0.6s ease-in-out;
+                    }
+
+                    &:hover span::after{
+                        width: 100%;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+.navBarHover {
+    width: 20rem !important;
+    transition: width 2s ease-in-out;
+
+    form{
+        .user-info{
+
+            .user-icon{
+                width: 6.3rem !important;
+                height: 6.3rem !important;
+            }
+        }
+    }
 }
 
 .container {
@@ -94,7 +214,7 @@ body {
 
 
     .tasks {
-        border: 1px solid blue;
+        /* border: 1px solid blue; */
         width: 60%;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -111,11 +231,12 @@ body {
             justify-content: space-between;
             border-radius: .8rem .8rem 0 0;
 
-            h2{
+            h2 {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
-                span{
+
+                span {
                     background-color: transparent;
                     font-size: 1.6rem;
                     font-weight: bold;
@@ -316,7 +437,7 @@ body {
 
                 label {
                     box-shadow: 0px 3px 5px rgba(255, 255, 255, 0.1),
-                                0px 3px 5px rgba(255, 255, 255, 0.1);
+                        0px 3px 5px rgba(255, 255, 255, 0.1);
                     display: flex;
                     align-items: center;
                     gap: 1.2rem;

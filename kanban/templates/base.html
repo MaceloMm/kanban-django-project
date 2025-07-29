@@ -8,6 +8,8 @@
     <title>FocusBoard</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
@@ -19,31 +21,57 @@
                 'opsz' 24
         }
     </style>
+    <link rel="icon" href="{% static 'images/icon.png' %}">
 </head>
 
 <body>
 
     <header id="navBar">
+
+
         <form action="{% url 'logout' %}" method="POST">
             {% csrf_token %}
+
             {% if user.is_anonymous %}
             <span class="material-symbols-outlined login">
                 account_circle
             </span>
+
+            {% elif user.image.thumb.url %}
+            <div class="user-info">
+                <img src="{{ user.image.thumb.url }}" alt="User Icon" class="user-icon">
+                <div class="user-options hiden">
+                    <a href="{% url 'perfil' %}" class="option">Perfil <span></span></a>
+                    <button type="submit" name="" class="option">Sair <span></span></button>
+                </div>
+            </div>
+
             {% else %}
-            <button type="submit">
-                <span class="material-symbols-outlined login">
-                    logout
-                </span>
-            </button>
+            <span class="material-symbols-outlined login">
+                account_circle
+            </span>
             {% endif %}
+
         </form>
+
         <div class="options">
             <label>
                 <span class="material-symbols-outlined">
                     search
                 </span>
             </label>
+            {% if not user.is_anonymous %}
+            <a href="{% url 'index' %}" title="Kanban">
+                <span class="material-symbols-outlined">
+                    view_kanban
+                </span>
+            </a>
+            <a href="" title="Projetos">
+                <span class="material-symbols-outlined">
+                    dashboard
+                </span>
+            </a>
+            {% endif %}
         </div>
     </header>
 
